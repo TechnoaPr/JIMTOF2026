@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JIMTOF2026 ブース巡回｜X公式アカウントのある出展社ガイド（非公式）</title>
+<meta name="description" content="JIMTOF2026でXの公式アカウントを運用している出展社を、ホールや中の人の常駐状況で絞り込んで巡回できる非公式ガイドです。">
+<meta name="theme-color" content="#1d2833">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="JIMTOF巡回">
+
+<!-- OGP：公開後、2か所の「https://YOUR-NAME.github.io/jimtof2026-x/」を実際のURLに置き換えてください -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="JIMTOF2026 ブース巡回｜X公式アカウントのある出展社ガイド">
+<meta property="og:description" content="Xの中の人に会いに行こう。ホールと常駐状況で絞り込める非公式ガイドです。">
+<meta property="og:url" content="https://YOUR-NAME.github.io/jimtof2026-x/">
+<meta property="og:image" content="https://YOUR-NAME.github.io/jimtof2026-x/ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@TechnoaPr">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#1d2833; --ink-2:#4a5866; --paper:#eceff2; --surface:#ffffff;
+  --plate:#cfd6dc; --plate-edge:#aeb8c1; --plate-ink:#24313d;
+  --accent:#1857b8; --accent-ink:#ffffff; --line:#d5dbe0;
+  --stay-bg:#dcf0e3; --stay-ink:#17663f;
+  --maybe-bg:#fbeec2; --maybe-ink:#7a5600;
+  --open-bg:#e3e7eb; --open-ink:#4f5b66;
+  --focus:#f2a900;
+  --fav:#d99a00; --fav-bg:#fff4cf; --fav-ink:#5c4100;
+  --map-bg:#e3ecf9; --map-edge:#b9cdee; --map-ink:#123f86;
+  --op-bg:#1d2833; --op-ink:#eceff2; --op-link:#9cc1f5;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  --num:"Barlow Condensed","DIN Condensed","Arial Narrow",var(--jp);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#e6ebef; --ink-2:#a9b5c0; --paper:#141b22; --surface:#1d262f;
+    --plate:#3a4753; --plate-edge:#53616e; --plate-ink:#eef2f5;
+    --accent:#5b93e8; --accent-ink:#0d1620; --line:#2e3a45;
+    --stay-bg:#173d2a; --stay-ink:#8fdcb0;
+    --maybe-bg:#43350d; --maybe-ink:#f3d27a;
+    --open-bg:#2c3640; --open-ink:#b3bec8;
+    --fav:#e0b13a; --fav-bg:#43350d; --fav-ink:#f3d27a;
+    --map-bg:#1c2c45; --map-edge:#2f4a73; --map-ink:#b9d1f5;
+    --op-bg:#0d141b; --op-ink:#e6ebef; --op-link:#9cc1f5;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e6ebef; --ink-2:#a9b5c0; --paper:#141b22; --surface:#1d262f;
+  --plate:#3a4753; --plate-edge:#53616e; --plate-ink:#eef2f5;
+  --accent:#5b93e8; --accent-ink:#0d1620; --line:#2e3a45;
+  --stay-bg:#173d2a; --stay-ink:#8fdcb0;
+  --maybe-bg:#43350d; --maybe-ink:#f3d27a;
+  --open-bg:#2c3640; --open-ink:#b3bec8;
+  --fav:#e0b13a; --fav-bg:#43350d; --fav-ink:#f3d27a;
+    --map-bg:#1c2c45; --map-edge:#2f4a73; --map-ink:#b9d1f5;
+    --op-bg:#0d141b; --op-ink:#e6ebef; --op-link:#9cc1f5;
+}
+*,*::before,*::after{box-sizing:inherit}
+button,a,select,input{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--jp);font-size:16px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+
+/* header */
+.top{background:var(--paper);border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0 10px}
+.brand{margin:0;font-size:1.05rem;font-weight:800;letter-spacing:.02em;line-height:1.3}
+.brand small{display:block;font-size:.72rem;font-weight:500;color:var(--ink-2);letter-spacing:0}
+.btn-guide{flex:none;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;text-decoration:none}
+
+/* filters */
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:10px}
+.search{grid-column:1/-1;position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:11px 40px 11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+.search input:focus{border-color:var(--accent);outline:none}
+.clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--ink-2);font-size:1.2rem;width:32px;height:32px;cursor:pointer;display:none}
+.clear.show{display:block}
+select{width:100%;font:inherit;font-size:16px;padding:9px 30px 9px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23889' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 10px center;color:var(--ink);appearance:none;-webkit-appearance:none}
+.count{display:flex;flex-wrap:wrap;gap:2px 10px;justify-content:space-between;align-items:baseline;padding:0 0 10px;font-size:.82rem;color:var(--ink-2)}
+.count b{font-family:var(--num);font-size:1.25rem;color:var(--ink);margin-right:2px}
+
+/* list */
+.list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.entry{background:var(--surface);border-radius:12px;border:1px solid var(--line);overflow:hidden}
+.item{display:grid;grid-template-columns:86px 1fr;gap:12px;align-items:stretch;padding:10px;text-decoration:none;color:inherit}
+.plate{position:relative;border-radius:6px;background:var(--plate);box-shadow:inset 0 0 0 1px var(--plate-edge),inset 0 2px 0 rgba(255,255,255,.35);color:var(--plate-ink);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:10px 4px}
+.plate::before,.plate::after{content:"";position:absolute;top:5px;width:5px;height:5px;border-radius:50%;background:var(--plate-edge)}
+.plate::before{left:5px}.plate::after{right:5px}
+.plate .no{font-family:var(--num);font-weight:700;font-size:1.55rem;line-height:1.05;letter-spacing:.02em;overflow-wrap:anywhere}
+.plate .no.long{font-size:1.05rem}
+.plate .no:not(.long){white-space:nowrap;font-size:clamp(1.15rem,6vw,1.55rem);letter-spacing:0}
+.plate .hall{font-size:.68rem;margin-top:5px;font-weight:600;line-height:1.2}
+.plate.tbd .no{font-family:var(--jp);font-size:.85rem;font-weight:700}
+.body{min-width:0;display:flex;flex-direction:column;gap:4px}
+.badge{align-self:flex-start;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 9px;line-height:1.6}
+.st-stay{background:var(--stay-bg);color:var(--stay-ink)}
+.st-maybe{background:var(--maybe-bg);color:var(--maybe-ink)}
+.st-open{background:var(--open-bg);color:var(--open-ink)}
+.name{margin:0;font-size:1.08rem;font-weight:800;line-height:1.35}
+.feat{margin:0;font-size:.85rem;color:var(--ink-2);line-height:1.5}
+.handle{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;margin-top:auto;padding-top:2px}
+.xicon{width:14px;height:14px;fill:currentColor;flex:none}
+
+.empty{background:var(--surface);border:1.5px dashed var(--line);border-radius:12px;padding:22px 18px;text-align:center;color:var(--ink-2);font-size:.9rem}
+.empty button{margin-top:10px}
+
+.foot{margin:28px 0 36px;font-size:.75rem;color:var(--ink-2);line-height:1.7}
+.foot a{color:var(--accent)}
+
+/* detail & guide */
+.page{padding-top:16px;padding-bottom:40px}
+.crumb{font-size:.82rem;color:var(--ink-2);margin:0 0 12px}
+.crumb a{color:var(--accent);text-decoration:none}
+.d-head{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center;margin-bottom:16px}
+.d-head .plate{min-height:96px}
+.d-head .plate .no{font-size:1.9rem}
+.d-head .plate .no.long{font-size:1.2rem}
+.d-name{margin:6px 0 0;font-size:1.45rem;font-weight:800;line-height:1.3}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+.card h2{margin:0 0 8px;font-size:.95rem;font-weight:800}
+.card p{margin:0}
+.xbtn{display:flex;align-items:center;gap:12px;text-decoration:none;background:var(--ink);color:var(--paper);border-radius:10px;padding:13px 16px}
+.xbtn .xicon{width:20px;height:20px}
+.xbtn b{display:block;font-size:1.05rem}
+.xbtn span{display:block;font-size:.75rem;opacity:.8}
+.src{display:block;margin-top:10px;font-size:.78rem;color:var(--ink-2)}
+.src a{color:var(--accent)}
+.others a{display:block;color:var(--accent);padding:8px 0;border-top:1px solid var(--line);text-decoration:none;font-weight:600}
+.others a:first-of-type{border-top:0}
+.back{display:inline-block;margin-top:8px;font-weight:700;color:var(--accent);text-decoration:none;padding:8px 0}
+.g-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.g-list li{font-size:.9rem}
+.g-list strong{display:block;font-size:.95rem;margin-bottom:2px}
+.g-st{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.g-st div{display:flex;gap:10px;align-items:baseline;font-size:.88rem}
+.g-st .badge{flex:none}
+.card ul.dots{margin:8px 0 14px;padding-left:1.2em;font-size:.9rem}
+.btn-primary{display:flex;justify-content:center;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:800;border-radius:10px;padding:13px 16px;border:0;font:inherit;font-weight:800;cursor:pointer;width:100%}
+.btn-primary .xicon{width:16px;height:16px}
+.note{font-size:.78rem;color:var(--ink-2)}
+.status-line{font-size:.75rem;color:var(--ink-2);margin-top:4px}
+
+/* 運営・マップ */
+.loading{display:flex;flex-direction:column;align-items:center;gap:14px;padding:48px 16px;text-align:center}
+.loading b{font-size:1.05rem}
+.loading span{font-size:.82rem;color:var(--ink-2)}
+.dots-run{display:flex;gap:6px}
+.dots-run i{width:30px;height:20px;border-radius:4px;background:var(--plate);box-shadow:inset 0 0 0 1px var(--plate-edge);animation:blink 1.2s infinite}
+.dots-run i:nth-child(2){animation-delay:.2s}.dots-run i:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{background:var(--plate-edge)}}
+.empty b{display:block;font-size:1rem;color:var(--ink);margin-bottom:4px}
+.op-badge{align-self:flex-start;font-size:.7rem;font-weight:700;border:1px solid var(--ink);border-radius:999px;padding:1px 8px;line-height:1.6}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.maplink{display:flex;align-items:center;gap:10px;margin-top:12px;background:var(--map-bg);border:1px solid var(--map-edge);color:var(--map-ink);border-radius:10px;padding:11px 14px;text-decoration:none;font-weight:700;font-size:.9rem;min-height:44px}
+.maplink span{flex:1}
+.mapbtn{display:flex;align-items:center;gap:12px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:13px 16px;text-decoration:none;margin-bottom:12px}
+.mapbtn b{display:block;font-size:.98rem}
+.mapbtn small{display:block;font-size:.75rem;opacity:.85}
+.mapbtn .grow{flex:1}
+.operator{display:flex;gap:14px;align-items:flex-start;background:var(--op-bg);color:var(--op-ink);border-radius:12px;padding:16px;margin-bottom:12px}
+.operator small{display:block;font-size:.75rem;opacity:.75}
+.operator b{display:block;font-size:1.05rem;margin:2px 0 4px}
+.operator p{margin:0 0 8px;font-size:.85rem;line-height:1.6}
+.operator .links{display:flex;gap:16px;flex-wrap:wrap}
+.operator a{color:var(--op-link);font-weight:700;font-size:.85rem}
+
+@media (max-width:374px){.item{grid-template-columns:76px 1fr;gap:10px}.brand small{font-size:.66rem}}
+@media (min-width:560px){
+  .filters{grid-template-columns:2fr 1fr 1fr}
+  .search{grid-column:auto}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.item:active{transform:none}}
+</style>
+</head>
+<body>
+<div id="app" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   設定（ここだけ書き換えれば運用できます）
+   ============================================================ */
+const CONFIG = {
+  // Googleスプレッドシートを「ウェブに公開」→「カンマ区切り形式(.csv)」で発行したURLを貼ります。
+  // 空のままなら、同じフォルダの data.csv を読み込みます。
+  SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBjW9zrMs0l4Nr8pM1Ep0if3kd4Ddisr7v0wk8-XAFy5OOmynBbAGrBzNGUF8tWWgav_G29vm403iF/pub?gid=1491173051&single=true&output=csv",
+  FALLBACK_CSV: "data.csv",
+  CONTACT_X: "TechnoaPr",
+  OFFICIAL_URL: "https://www.jimtof.org/",
+  // Googleアナリティクス4の測定ID（例：G-XXXXXXXXXX）。空なら計測しません。
+  GA4_ID: "",
+
+  // エリアごとの公式マップのURL。空欄のエリアは OFFICIAL_URL を開きます。
+  MAP_URLS: {
+    e13: "", // 東1〜3ホール
+    e78: "", // 東7〜8ホール
+    w12: "", // 西1〜2ホール・アトリウム
+    w34: "", // 西3〜4ホール
+    s12: "", // 南1〜2ホール
+    s34: ""  // 南3〜4ホール
+  },
+
+  // 運営紹介
+  OPERATOR_NAME: "株式会社テクノア",
+  OPERATOR_TEXT: "個別受注生産の工場向け生産管理システム「TECHS」をつくっています。",
+  OPERATOR_LINK_LABEL: "TECHSを見る",
+  OPERATOR_LINK_URL: "https://techs-s.com/",
+
+};
+
+/* ============================================================ */
+const STORE_KEY = "jimtof2026x:data";
+const STATUS = {
+  stay:  { label: "常駐予定",   cls: "st-stay"  },
+  maybe: { label: "気まぐれ来店", cls: "st-maybe" },
+  open:  { label: "情報募集中", cls: "st-open"  }
+};
+const HALL_GROUPS = [
+  { key: "e13", label: "東1〜3ホール",            test: h => /^東[1-3]/.test(h) },
+  { key: "e78", label: "東7〜8ホール",            test: h => /^東[78]/.test(h) },
+  { key: "w12", label: "西1〜2ホール・アトリウム", test: h => /^西[12]|アトリウム/.test(h) },
+  { key: "w34", label: "西3〜4ホール",            test: h => /^西[34]/.test(h) },
+  { key: "s12", label: "南1〜2ホール",            test: h => /^南[12]/.test(h) },
+  { key: "s34", label: "南3〜4ホール",            test: h => /^南[34]/.test(h) },
+  { key: "tbd", label: "ホール調査中",            test: h => !h }
+];
+const X_SVG = '<svg class="xicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+
+const state = { rows: [], q: "", hall: "all", status: "all", source: "", updated: null, scrollY: 0 };
+
+
+/* ---------- utilities ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const fold = s => String(s ?? "").normalize("NFKC").toLowerCase()
+  .replace(/[\u3041-\u3096]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60))
+  .replace(/[\s・\-ー－（）()株式会社]/g, "");
+
+function parseCSV(text) {
+  text = text.replace(/^\uFEFF/, "");
+  const rows = []; let row = [], f = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; }
+      else f += c;
+    } else if (c === '"') q = true;
+    else if (c === ",") { row.push(f); f = ""; }
+    else if (c === "\n") { row.push(f); rows.push(row); row = []; f = ""; }
+    else if (c !== "\r") f += c;
+  }
+  if (f !== "" || row.length) { row.push(f); rows.push(row); }
+  const head = (rows.shift() || []).map(h => h.trim());
+  return rows.map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? "").trim()])));
+}
+
+function deriveHall(booth, hallCol) {
+  const m = booth.match(/^([EWS])\s*(\d)/i);
+  if (m) return { E: "東", W: "西", S: "南" }[m[1].toUpperCase()] + m[2] + "ホール";
+  const h = (hallCol || "").trim();
+  return (!h || /要確認|調査中|未定/.test(h)) ? "" : h;
+}
+function normStatus(s) {
+  s = s || "";
+  if (/常駐/.test(s)) return "stay";
+  if (/気まぐれ/.test(s)) return "maybe";
+  return "open";
+}
+function normHandle(s) {
+  return String(s || "").trim()
+    .replace(/^https?:\/\/(www\.)?(x|twitter)\.com\//i, "")
+    .replace(/^@/, "").split(/[/?#\s]/)[0];
+}
+function boothSortKey(b) {
+  const m = b.match(/^([EWS])(\d+)/i);
+  if (!m) return [9, 0];
+  return [{ E: 0, W: 1, S: 2 }[m[1].toUpperCase()], parseInt(m[2], 10)];
+}
+
+function normalize(raw) {
+  const out = [];
+  raw.forEach((r, i) => {
+    if (!r.company_name) return;
+    const booth = (r.booth_number || "").replace(/要確認|調査中/, "").trim();
+    const hall = deriveHall(booth, r.hall);
+    const grp = HALL_GROUPS.find(g => g.test(hall));
+    const handle = normHandle(r.x_account);
+    out.push({
+      id: String(r.id || i + 1).trim(),
+      booth, hall, group: grp ? grp.key : "other",
+      name: r.company_name, feat: r.exhibit_features || "",
+      handle, status: normStatus(r.presence_status),
+      evidence: r.evidence_url || "",
+      hay: fold([r.company_name, r.exhibit_features, handle, booth, hall].join(" "))
+    });
+  });
+  out.sort((a, b) => {
+    const ka = boothSortKey(a.booth), kb = boothSortKey(b.booth);
+    return ka[0] - kb[0] || ka[1] - kb[1] || a.name.localeCompare(b.name, "ja");
+  });
+  return out;
+}
+
+/* ---------- data loading（会場の電波が弱くても動くよう、前回分を保存） ---------- */
+async function fetchText(url) {
+  const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(res.status);
+  const t = await res.text();
+  if (!/company_name/.test(t)) throw new Error("format");
+  return t;
+}
+async function loadData() {
+  let cached = null;
+  try { cached = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) {}
+  if (cached && cached.csv) {
+    state.rows = normalize(parseCSV(cached.csv));
+    state.updated = new Date(cached.at); state.source = "cache";
+    render();
+  }
+  const urls = [CONFIG.SHEET_CSV_URL, CONFIG.FALLBACK_CSV].filter(Boolean);
+  for (const u of urls) {
+    try {
+      const csv = await fetchText(u);
+      state.rows = normalize(parseCSV(csv));
+      state.updated = new Date(); state.source = "live";
+      try { localStorage.setItem(STORE_KEY, JSON.stringify({ csv, at: Date.now() })); } catch (e) {}
+      render();
+      return;
+    } catch (e) { /* 次の読み込み先へ */ }
+  }
+  if (!state.rows.length) { state.source = "error"; render(); }
+}
+
+/* ---------- analytics ---------- */
+function track(name, params) {
+  if (CONFIG.GA4_ID && window.gtag) gtag("event", name, params || {});
+}
+if (CONFIG.GA4_ID) {
+  const s = document.createElement("script");
+  s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + CONFIG.GA4_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { dataLayer.push(arguments); };
+  gtag("js", new Date()); gtag("config", CONFIG.GA4_ID);
+}
+
+/* ---------- views ---------- */
+const app = document.getElementById("app");
+
+function plate(r) {
+  const tbd = !r.booth;
+  const no = tbd ? "調査中" : r.booth;
+  const long = no.length > 6 ? " long" : "";
+  return `<div class="plate${tbd ? " tbd" : ""}" aria-label="小間番号 ${esc(no)}">
+    <span class="no${long}">${esc(no).replace(/-/g, "-<wbr>")}</span>
+    <span class="hall">${esc(r.hall || "ホール調査中")}</span></div>`;
+}
+function mapUrl(group) { return (CONFIG.MAP_URLS && CONFIG.MAP_URLS[group]) || CONFIG.OFFICIAL_URL; }
+function groupLabel(group) { const g = HALL_GROUPS.find(x => x.key === group); return g ? g.label : ""; }
+const MAP_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>';
+const PIN_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+const EXT_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"/><path d="M10 14 20 4"/><path d="M20 14v6H4V4h6"/></svg>';
+const isOperator = r => r.handle && r.handle.toLowerCase() === CONFIG.CONTACT_X.toLowerCase();
+function operatorCard() {
+  const op = state.rows.find(isOperator);
+  return `<section class="operator">
+    <div><small>このガイドの運営</small><b>${esc(CONFIG.OPERATOR_NAME)}</b>
+      <p>${esc(CONFIG.OPERATOR_TEXT)}${op && op.booth ? `${esc(op.hall)} ${esc(op.booth)} でお待ちしています。` : ""}</p>
+      <div class="links">${CONFIG.OPERATOR_LINK_URL ? `<a href="${esc(CONFIG.OPERATOR_LINK_URL)}" target="_blank" rel="noopener">${esc(CONFIG.OPERATOR_LINK_LABEL)}</a>` : ""}
+      ${op ? `<a href="#/booth/${encodeURIComponent(op.id)}">ブースの場所</a>` : ""}</div></div></section>`;
+}
+function badge(st) { return `<span class="badge ${STATUS[st].cls}">${STATUS[st].label}</span>`; }
+
+function filtered() {
+  const q = fold(state.q);
+  return state.rows.filter(r =>
+    (state.hall === "all" || r.group === state.hall) &&
+    (state.status === "all" || r.status === state.status) &&
+    (!q || r.hay.includes(q)));
+}
+
+function resultsHTML() {
+  const rows = filtered();
+  if (state.source === "error" && !state.rows.length)
+    return `<div class="empty">出展社データを読み込めませんでした。電波の良い場所で、ページを再読み込みしてください。</div>`;
+  if (!state.rows.length) return `<div class="loading"><div class="dots-run" aria-hidden="true"><i></i><i></i><i></i></div><b>出展社リストを準備しています</b><span>電波が弱いときは、前回のデータを先に表示します</span></div>`;
+  if (!rows.length)
+    return `<div class="empty">条件に合うブースがありません。キーワードを短くするか、絞り込みを「すべて」に戻してください。<br><button class="btn-guide" id="reset">絞り込みを解除する</button></div>`;
+  const mapTop = (state.hall !== "all" && state.hall !== "tbd")
+    ? `<a class="maplink" href="${esc(mapUrl(state.hall))}" target="_blank" rel="noopener">${MAP_ICON}<span>${esc(groupLabel(state.hall))}の公式マップを開く</span>${EXT_ICON}</a>` : "";
+  return mapTop + `<ul class="list">${rows.map(r => `<li class="entry"><a class="item" href="#/booth/${encodeURIComponent(r.id)}">
+      ${plate(r)}
+      <div class="body"><div class="badges">${badge(r.status)}${isOperator(r) ? '<span class="op-badge">このガイドの運営ブース</span>' : ""}</div>
+        <h2 class="name">${esc(r.name)}</h2>
+        <p class="feat">${esc(r.feat)}</p>
+        ${r.handle ? `<span class="handle">${X_SVG}@${esc(r.handle)}</span>` : ""}
+      </div></a></li>`).join("")}</ul>`;
+}
+function countHTML() {
+  const n = filtered().length;
+  const companies = new Set(state.rows.map(r => r.name)).size;
+  const t = state.updated ? state.updated.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+  const note = state.source === "cache" ? `保存済みデータ（${t}時点）` : t ? `データ更新：${t}` : "";
+  return `<span><b>${n}</b>件 / 全${state.rows.length}件（${companies}社）</span><span>${esc(note)}</span>`;
+}
+function updateResults() {
+  document.getElementById("results").innerHTML = resultsHTML();
+  document.getElementById("count").innerHTML = countHTML();
+  document.getElementById("clear").classList.toggle("show", !!state.q);
+  const reset = document.getElementById("reset");
+  if (reset) reset.addEventListener("click", () => {
+    state.q = ""; state.hall = "all"; state.status = "all";
+    document.getElementById("q").value = "";
+    document.getElementById("hall").value = "all";
+    document.getElementById("status").value = "all";
+    updateResults();
+  });
+}
+
+function listView() {
+  const hallOpts = HALL_GROUPS.map(g => `<option value="${g.key}"${state.hall === g.key ? " selected" : ""}>${g.label}</option>`).join("");
+  const stOpts = Object.entries(STATUS).map(([k, v]) => `<option value="${k}"${state.status === k ? " selected" : ""}>${v.label}</option>`).join("");
+  return `
+  <header class="top"><div class="wrap">
+    <div class="top-row">
+      <h1 class="brand">JIMTOF2026 ブース巡回<small>Xの公式アカウントがある出展社ガイド（非公式）</small></h1>
+      <a class="btn-guide" href="#/guide">ガイド</a>
+    </div>
+    <div class="filters">
+      <div class="search">
+        <input id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="社名・キーワードで検索（例：歯車）" value="${esc(state.q)}" aria-label="社名やキーワードで検索">
+        <button class="clear" id="clear" aria-label="検索語を消す">×</button>
+      </div>
+      <select id="hall" aria-label="ホールで絞り込む"><option value="all">すべてのホール</option>${hallOpts}</select>
+      <select id="status" aria-label="常駐状況で絞り込む"><option value="all">常駐：すべて</option>${stOpts}</select>
+    </div>
+    <div class="count" id="count"></div>
+  </div></header>
+  <main class="wrap"><div id="results"></div>
+    <p class="foot">このページは有志が運営する非公式ガイドで、JIMTOF主催者とは関係ありません。会場図や公式情報は<a href="${CONFIG.OFFICIAL_URL}" target="_blank" rel="noopener">JIMTOF公式サイト</a>でご確認ください。<br>掲載内容の追加・修正は <a href="https://x.com/${CONFIG.CONTACT_X}" target="_blank" rel="noopener">@${CONFIG.CONTACT_X}</a> までお気軽にどうぞ。</p>
+  </main>`;
+}
+
+function detailView(id) {
+  const r = state.rows.find(x => x.id === id);
+  if (!r) {
+    return `<main class="wrap page"><p class="crumb"><a href="#/">ブース一覧</a></p>
+      <div class="empty">${state.rows.length ? "このブースの情報は見つかりませんでした。一覧から探し直してください。" : "読み込み中です…"}</div>
+      <a class="back" href="#/">← ブース一覧へ戻る</a></main>`;
+  }
+  const others = state.rows.filter(x => x.name === r.name && x.id !== r.id);
+  const ev = /^https?:\/\//.test(r.evidence)
+    ? `<span class="src">情報のもと：<a href="${esc(r.evidence)}" target="_blank" rel="noopener">${/x\.com|twitter\.com/.test(r.evidence) ? "公式アカウントの投稿を見る" : "出展案内ページを見る"}</a></span>`
+    : r.evidence ? `<span class="src">情報のもと：${esc(r.evidence)}</span>` : "";
+  return `<main class="wrap page">
+    <p class="crumb"><a href="#/">ブース一覧</a> / ${esc(r.name)}</p>
+    <div class="d-head">${plate(r)}<div><div class="badges">${badge(r.status)}${isOperator(r) ? '<span class="op-badge">このガイドの運営ブース</span>' : ""}</div><h1 class="d-name">${esc(r.name)}</h1></div></div>
+    ${r.group && r.group !== "tbd" && r.group !== "other" ? `<a class="mapbtn" href="${esc(mapUrl(r.group))}" target="_blank" rel="noopener">${PIN_ICON}<span class="grow"><b>${esc(groupLabel(r.group))}の公式マップを開く</b><small>JIMTOF公式サイトの会場図が開きます</small></span>${EXT_ICON}</a>` : ""}
+    <section class="card"><h2>展示内容・特徴</h2><p>${esc(r.feat) || "情報募集中です"}</p></section>
+    ${r.handle ? `<section class="card"><h2>X アカウント</h2>
+      <a class="xbtn" id="xlink" href="https://x.com/${encodeURIComponent(r.handle)}" target="_blank" rel="noopener">${X_SVG}<span><b>@${esc(r.handle)}</b><span>タップしてXを開く</span></span></a>
+      ${ev}</section>` : ""}
+    ${others.length ? `<section class="card others"><h2>この会社のほかのブース</h2>${others.map(o => `<a href="#/booth/${encodeURIComponent(o.id)}">${esc(o.booth || "調査中")}（${esc(o.hall || "ホール調査中")}）</a>`).join("")}</section>` : ""}
+    <p class="note">ブース位置や常駐状況が違っていたら、<a href="https://x.com/${CONFIG.CONTACT_X}" target="_blank" rel="noopener">@${CONFIG.CONTACT_X}</a> へDMで教えてください。</p>
+    <a class="back" href="#/">← ブース一覧へ戻る</a>
+  </main>`;
+}
+
+function guideView() {
+  return `<main class="wrap page">
+    <p class="crumb"><a href="#/">ブース一覧</a> / ガイド・お知らせ</p>
+    <h1 class="d-name" style="margin-bottom:14px">ガイド・お知らせ</h1>
+    <section class="card"><h2>使い方</h2>
+      <ul class="g-list">
+        <li><strong>🔍 検索・絞り込み</strong>社名やキーワードで検索できます。展示ホールと常駐状況を組み合わせて絞り込めます。</li>
+        <li><strong>🏷 常駐状況の見方</strong>
+          <div class="g-st">
+            <div>${badge("stay")}<span>中の人がブースにいる予定です</span></div>
+            <div>${badge("maybe")}<span>来場するかもしれません。投稿をチェックしてみてください</span></div>
+            <div>${badge("open")}<span>まだ情報が届いていません。ご存じの方はぜひお知らせください</span></div>
+          </div></li>
+        <li><strong>📌 詳細を見る</strong>ブースをタップすると、Xアカウントなどの詳しい情報を確認できます。</li>
+        <li><strong>📱 インストールは不要です</strong>このページはブラウザでそのまま使えます。もっと手軽に開きたい方は、ホーム画面に追加しておくと便利です（iPhoneはSafariの共有ボタン→「ホーム画面に追加」、Androidはメニュー→「ホーム画面に追加」）。</li>
+      </ul></section>
+    <section class="card"><h2>情報の追加・修正</h2>
+      <p>次のような情報があれば、@${CONFIG.CONTACT_X} までDMでお知らせください。</p>
+      <ul class="dots">
+        <li>「調査中」になっているブースのホール・小間番号</li>
+        <li>新しく追加したい出展社の情報</li>
+        <li>常駐状況の変更や訂正</li>
+        <li>そのほか気になる点</li>
+      </ul>
+      <a class="btn-primary" href="https://x.com/${CONFIG.CONTACT_X}" target="_blank" rel="noopener">${X_SVG}@${CONFIG.CONTACT_X} に連絡する</a>
+    </section>
+    ${operatorCard()}
+    <section class="card"><h2>このガイドについて</h2>
+      <p class="note">有志が運営する非公式ガイドで、JIMTOF主催者とは関係ありません。掲載内容は各社の公開投稿などをもとにしています。会場図や公式情報は<a href="${CONFIG.OFFICIAL_URL}" target="_blank" rel="noopener">JIMTOF公式サイト</a>でご確認ください。${CONFIG.GA4_ID ? "<br>サービス改善のため、Googleアナリティクスでアクセス状況（どのブースが見られたかなど）を計測しています。個人を特定する情報は集めていません。" : ""}</p>
+    </section>
+    <a class="back" href="#/">← ブース一覧へ戻る</a>
+  </main>`;
+}
+
+/* ---------- router ---------- */
+let lastRoute = "";
+function render() {
+  const h = location.hash || "#/";
+  const m = h.match(/^#\/booth\/(.+)$/);
+  const route = m ? "booth" : h === "#/guide" ? "guide" : "list";
+
+  if (route === "list") {
+    if (lastRoute !== "list" || !document.getElementById("results")) {
+      app.innerHTML = listView();
+      bindList();
+      updateResults();
+      if (lastRoute && lastRoute !== "list") window.scrollTo(0, state.scrollY);
+    } else {
+      updateResults();
+    }
+    lastRoute = "list";
+    return;
+  }
+
+  if (lastRoute === "list") state.scrollY = window.scrollY;
+  let key = route;
+  if (route === "booth") {
+    const id = decodeURIComponent(m[1]);
+    key = "booth:" + id;
+    app.innerHTML = detailView(id);
+    const r = state.rows.find(x => x.id === id);
+    if (r && lastRoute !== key) track("view_booth", { company: r.name, booth: r.booth });
+    const x = document.getElementById("xlink");
+    if (x && r) x.addEventListener("click", () => track("open_x", { company: r.name, account: r.handle }));
+  } else {
+    app.innerHTML = guideView();
+  }
+  if (lastRoute !== key) window.scrollTo(0, 0);
+  lastRoute = key;
+}
+
+function bindList() {
+  const q = document.getElementById("q");
+  let composing = false;
+  const apply = () => { state.q = q.value; updateResults(); };
+  q.addEventListener("compositionstart", () => { composing = true; });
+  q.addEventListener("compositionend", () => { composing = false; apply(); });
+  q.addEventListener("input", e => { if (!composing && !e.isComposing) apply(); });
+  document.getElementById("clear").addEventListener("click", () => { q.value = ""; apply(); q.focus(); });
+  document.getElementById("hall").addEventListener("change", e => { state.hall = e.target.value; updateResults(); });
+  document.getElementById("status").addEventListener("change", e => { state.status = e.target.value; updateResults(); });
+
+}
+
+window.addEventListener("hashchange", render);
+render();
+loadData();
+
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+</body>
+</html>
