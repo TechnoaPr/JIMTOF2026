@@ -12,12 +12,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="JIMTOF巡回">
 
-<!-- OGP：公開後、2か所の「https://YOUR-NAME.github.io/jimtof2026-x/」を実際のURLに置き換えてください -->
+<!-- OGP（Xのリンクカード） -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="JIMTOF2026 ブース巡回｜X公式アカウントのある出展社ガイド">
 <meta property="og:description" content="Xの中の人に会いに行こう。ホールと常駐状況で絞り込める非公式ガイドです。">
-<meta property="og:url" content="https://YOUR-NAME.github.io/jimtof2026-x/">
-<meta property="og:image" content="https://YOUR-NAME.github.io/jimtof2026-x/ogp.png">
+<meta property="og:url" content="https://technoapr.github.io/JIMTOF2026/">
+<meta property="og:image" content="https://technoapr.github.io/JIMTOF2026/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@TechnoaPr">
 
@@ -262,7 +262,7 @@ function parseCSV(text) {
     else if (c !== "\r") f += c;
   }
   if (f !== "" || row.length) { row.push(f); rows.push(row); }
-  const head = (rows.shift() || []).map(h => h.trim());
+  const head = (rows.shift() || []).map(h => h.trim().replace(/^(?:\uFEFF|\\x[0-9A-F]{2})+/i, ""));
   return rows.map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? "").trim()])));
 }
 
@@ -413,7 +413,7 @@ function countHTML() {
   const companies = new Set(state.rows.map(r => r.name)).size;
   const t = state.updated ? state.updated.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
   const note = state.source === "cache" ? `保存済みデータ（${t}時点）` : t ? `データ更新：${t}` : "";
-  return `<span><b>${n}</b>件 / 全${state.rows.length}件（${companies}社）</span><span>${esc(note)}</span>`;
+  return `<span><b>${n}</b>ブースを表示中（全${companies}社・${state.rows.length}ブース）</span><span>${esc(note)}</span>`;
 }
 function updateResults() {
   document.getElementById("results").innerHTML = resultsHTML();
@@ -440,7 +440,7 @@ function listView() {
     </div>
     <div class="filters">
       <div class="search">
-        <input id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="社名・キーワードで検索（例：歯車）" value="${esc(state.q)}" aria-label="社名やキーワードで検索">
+        <input id="q" type="search" inputmode="search" enterkeyhint="search" placeholder="社名・キーワードで検索" value="${esc(state.q)}" aria-label="社名やキーワードで検索">
         <button class="clear" id="clear" aria-label="検索語を消す">×</button>
       </div>
       <select id="hall" aria-label="ホールで絞り込む"><option value="all">すべてのホール</option>${hallOpts}</select>
