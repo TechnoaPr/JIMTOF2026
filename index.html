@@ -203,15 +203,17 @@ const CONFIG = {
   // Googleアナリティクス4の測定ID（例：G-XXXXXXXXXX）。空なら計測しません。
   GA4_ID: "",
 
-  // エリアごとの公式マップのURL。空欄のエリアは OFFICIAL_URL を開きます。
+  // エリアごとの公式マップ（JIMTOF公式サイト「小間割図検索」の各ホールのページ）
   MAP_URLS: {
-    e13: "", // 東1〜3ホール
-    e78: "", // 東7〜8ホール
-    w12: "", // 西1〜2ホール・アトリウム
-    w34: "", // 西3〜4ホール
-    s12: "", // 南1〜2ホール
-    s34: ""  // 南3〜4ホール
+    e13: "https://www.jimtof.org/map/jp/e1-3_booth/e1-3.html", // 東1〜3ホール
+    e78: "https://www.jimtof.org/map/jp/e7-8_booth/e7-8.html", // 東7〜8ホール
+    w12: "https://www.jimtof.org/map/jp/w1-2_booth/w1-2.html", // 西1〜2ホール・アトリウム
+    w34: "https://www.jimtof.org/map/jp/w3-4_booth/w3-4.html", // 西3〜4ホール
+    s12: "https://www.jimtof.org/map/jp/s1-2_booth/s1-2.html", // 南1〜2ホール
+    s34: "https://www.jimtof.org/map/jp/s3-4_booth/s3-4.html"  // 南3〜4ホール
   },
+  // エリアが決まっていないときに開く、小間割図の一覧ページ
+  MAP_INDEX_URL: "https://www.jimtof.org/jp/exhi_search_booth.html",
 
   // 運営紹介
   OPERATOR_NAME: "株式会社テクノア",
@@ -367,7 +369,7 @@ function plate(r) {
     <span class="no${long}">${esc(no).replace(/-/g, "-<wbr>")}</span>
     <span class="hall">${esc(r.hall || "ホール調査中")}</span></div>`;
 }
-function mapUrl(group) { return (CONFIG.MAP_URLS && CONFIG.MAP_URLS[group]) || CONFIG.OFFICIAL_URL; }
+function mapUrl(group) { return (CONFIG.MAP_URLS && CONFIG.MAP_URLS[group]) || CONFIG.MAP_INDEX_URL || CONFIG.OFFICIAL_URL; }
 function groupLabel(group) { const g = HALL_GROUPS.find(x => x.key === group); return g ? g.label : ""; }
 const MAP_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>';
 const PIN_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
