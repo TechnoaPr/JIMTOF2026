@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JIMTOF2026 ブース巡回｜X公式アカウントのある出展社ガイド（非公式）</title>
-<meta name="description" content="JIMTOF2026でXの公式アカウントを運用している出展社を、ホールや中の人の常駐状況で絞り込んで巡回できる非公式ガイドです。">
+<meta name="description" content="JIMTOF2026でXの公式アカウントを運用している出展社を、社名やホールで探して巡回できる非公式ガイドです。">
 <meta name="theme-color" content="#1d2833">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
@@ -15,7 +15,7 @@
 <!-- OGP（Xのリンクカード） -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="JIMTOF2026 ブース巡回｜X公式アカウントのある出展社ガイド">
-<meta property="og:description" content="Xの中の人に会いに行こう。ホールと常駐状況で絞り込める非公式ガイドです。">
+<meta property="og:description" content="Xで発信している出展社を、社名やホールで探せる非公式ガイドです。">
 <meta property="og:url" content="https://technoapr.github.io/JIMTOF2026/">
 <meta property="og:image" content="https://technoapr.github.io/JIMTOF2026/ogp.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -83,7 +83,7 @@ a{color:inherit}
 .btn-guide{flex:none;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer;text-decoration:none}
 
 /* filters */
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:10px}
+.filters{display:grid;grid-template-columns:1fr;gap:8px;padding-bottom:10px}
 .search{grid-column:1/-1;position:relative}
 .search input{width:100%;font:inherit;font-size:16px;padding:11px 40px 11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
 .search input:focus{border-color:var(--accent);outline:none}
@@ -180,7 +180,7 @@ select{width:100%;font:inherit;font-size:16px;padding:9px 30px 9px 10px;border:1
 
 @media (max-width:374px){.item{grid-template-columns:76px 1fr;gap:10px}.brand small{font-size:.66rem}}
 @media (min-width:560px){
-  .filters{grid-template-columns:2fr 1fr 1fr}
+  .filters{grid-template-columns:2fr 1fr}
   .search{grid-column:auto}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.item:active{transform:none}}
@@ -389,7 +389,6 @@ function filtered() {
   const q = fold(state.q);
   return state.rows.filter(r =>
     (state.hall === "all" || r.group === state.hall) &&
-    (state.status === "all" || r.status === state.status) &&
     (!q || r.hay.includes(q)));
 }
 
@@ -404,7 +403,7 @@ function resultsHTML() {
     ? `<a class="maplink" href="${esc(mapUrl(state.hall))}" target="_blank" rel="noopener">${MAP_ICON}<span>${esc(groupLabel(state.hall))}の公式マップを開く</span>${EXT_ICON}</a>` : "";
   return mapTop + `<ul class="list">${rows.map(r => `<li class="entry"><a class="item" href="#/booth/${encodeURIComponent(r.id)}">
       ${plate(r)}
-      <div class="body"><div class="badges">${badge(r.status)}${isOperator(r) ? '<span class="op-badge">このガイドの運営ブース</span>' : ""}</div>
+      <div class="body">${isOperator(r) ? '<span class="op-badge">このガイドの運営ブース</span>' : ""}
         <h2 class="name">${esc(r.name)}</h2>
         <p class="feat">${esc(r.feat)}</p>
         ${r.handle ? `<span class="handle">${X_SVG}@${esc(r.handle)}</span>` : ""}
@@ -423,17 +422,15 @@ function updateResults() {
   document.getElementById("clear").classList.toggle("show", !!state.q);
   const reset = document.getElementById("reset");
   if (reset) reset.addEventListener("click", () => {
-    state.q = ""; state.hall = "all"; state.status = "all";
+    state.q = ""; state.hall = "all";
     document.getElementById("q").value = "";
     document.getElementById("hall").value = "all";
-    document.getElementById("status").value = "all";
     updateResults();
   });
 }
 
 function listView() {
   const hallOpts = HALL_GROUPS.map(g => `<option value="${g.key}"${state.hall === g.key ? " selected" : ""}>${g.label}</option>`).join("");
-  const stOpts = Object.entries(STATUS).map(([k, v]) => `<option value="${k}"${state.status === k ? " selected" : ""}>${v.label}</option>`).join("");
   return `
   <header class="top"><div class="wrap">
     <div class="top-row">
@@ -446,7 +443,6 @@ function listView() {
         <button class="clear" id="clear" aria-label="検索語を消す">×</button>
       </div>
       <select id="hall" aria-label="ホールで絞り込む"><option value="all">すべてのホール</option>${hallOpts}</select>
-      <select id="status" aria-label="常駐状況で絞り込む"><option value="all">常駐：すべて</option>${stOpts}</select>
     </div>
     <div class="count" id="count"></div>
   </div></header>
@@ -468,14 +464,14 @@ function detailView(id) {
     : r.evidence ? `<span class="src">情報のもと：${esc(r.evidence)}</span>` : "";
   return `<main class="wrap page">
     <p class="crumb"><a href="#/">ブース一覧</a> / ${esc(r.name)}</p>
-    <div class="d-head">${plate(r)}<div><div class="badges">${badge(r.status)}${isOperator(r) ? '<span class="op-badge">このガイドの運営ブース</span>' : ""}</div><h1 class="d-name">${esc(r.name)}</h1></div></div>
+    <div class="d-head">${plate(r)}<div>${isOperator(r) ? '<span class="op-badge">このガイドの運営ブース</span>' : ""}<h1 class="d-name">${esc(r.name)}</h1></div></div>
     ${r.group && r.group !== "tbd" && r.group !== "other" ? `<a class="mapbtn" href="${esc(mapUrl(r.group))}" target="_blank" rel="noopener">${PIN_ICON}<span class="grow"><b>${esc(groupLabel(r.group))}の公式マップを開く</b><small>JIMTOF公式サイトの会場図が開きます</small></span>${EXT_ICON}</a>` : ""}
     <section class="card"><h2>展示内容・特徴</h2><p>${esc(r.feat) || "情報募集中です"}</p></section>
     ${r.handle ? `<section class="card"><h2>X アカウント</h2>
       <a class="xbtn" id="xlink" href="https://x.com/${encodeURIComponent(r.handle)}" target="_blank" rel="noopener">${X_SVG}<span><b>@${esc(r.handle)}</b><span>タップしてXを開く</span></span></a>
       ${ev}</section>` : ""}
     ${others.length ? `<section class="card others"><h2>この会社のほかのブース</h2>${others.map(o => `<a href="#/booth/${encodeURIComponent(o.id)}">${esc(o.booth || "調査中")}（${esc(o.hall || "ホール調査中")}）</a>`).join("")}</section>` : ""}
-    <p class="note">ブース位置や常駐状況が違っていたら、<a href="https://x.com/${CONFIG.CONTACT_X}" target="_blank" rel="noopener">@${CONFIG.CONTACT_X}</a> へDMで教えてください。</p>
+    <p class="note">ブースの場所などが違っていたら、<a href="https://x.com/${CONFIG.CONTACT_X}" target="_blank" rel="noopener">@${CONFIG.CONTACT_X}</a> へDMで教えてください。</p>
     <a class="back" href="#/">← ブース一覧へ戻る</a>
   </main>`;
 }
@@ -486,13 +482,7 @@ function guideView() {
     <h1 class="d-name" style="margin-bottom:14px">ガイド・お知らせ</h1>
     <section class="card"><h2>使い方</h2>
       <ul class="g-list">
-        <li><strong>🔍 検索・絞り込み</strong>社名やキーワードで検索できます。展示ホールと常駐状況を組み合わせて絞り込めます。</li>
-        <li><strong>🏷 常駐状況の見方</strong>
-          <div class="g-st">
-            <div>${badge("stay")}<span>中の人がブースにいる予定です</span></div>
-            <div>${badge("maybe")}<span>来場するかもしれません。投稿をチェックしてみてください</span></div>
-            <div>${badge("open")}<span>まだ情報が届いていません。ご存じの方はぜひお知らせください</span></div>
-          </div></li>
+        <li><strong>🔍 検索・絞り込み</strong>社名やキーワードで検索できます。展示ホールで絞り込むこともできます。</li>
         <li><strong>📌 詳細を見る</strong>ブースをタップすると、Xアカウントなどの詳しい情報を確認できます。</li>
         <li><strong>📱 インストールは不要です</strong>このページはブラウザでそのまま使えます。もっと手軽に開きたい方は、ホーム画面に追加しておくと便利です（iPhoneはSafariの共有ボタン→「ホーム画面に追加」、Androidはメニュー→「ホーム画面に追加」）。</li>
       </ul></section>
@@ -501,14 +491,21 @@ function guideView() {
       <ul class="dots">
         <li>「調査中」になっているブースのホール・小間番号</li>
         <li>新しく追加したい出展社の情報</li>
-        <li>常駐状況の変更や訂正</li>
         <li>そのほか気になる点</li>
       </ul>
       <a class="btn-primary" href="https://x.com/${CONFIG.CONTACT_X}" target="_blank" rel="noopener">${X_SVG}@${CONFIG.CONTACT_X} に連絡する</a>
     </section>
     ${operatorCard()}
+    <section class="card"><h2>掲載のルール</h2>
+      <ul class="dots">
+        <li>主に各社の公式Xの投稿をもとに掲載しています</li>
+        <li>ホール・小間番号も、各社の投稿や公式の出展情報で確認しています</li>
+        <li>確認できないブースは「調査中」と表示しています</li>
+        <li>情報は随時更新します</li>
+      </ul>
+    </section>
     <section class="card"><h2>このガイドについて</h2>
-      <p class="note">有志が運営する非公式ガイドで、JIMTOF主催者とは関係ありません。掲載内容は各社の公開投稿などをもとにしています。会場図や公式情報は<a href="${CONFIG.OFFICIAL_URL}" target="_blank" rel="noopener">JIMTOF公式サイト</a>でご確認ください。${CONFIG.GA4_ID ? "<br>サービス改善のため、Googleアナリティクスでアクセス状況（どのブースが見られたかなど）を計測しています。個人を特定する情報は集めていません。" : ""}</p>
+      <p class="note">有志が運営する非公式ガイドで、JIMTOF主催者とは関係ありません。会場図や公式情報は<a href="${CONFIG.OFFICIAL_URL}" target="_blank" rel="noopener">JIMTOF公式サイト</a>でご確認ください。${CONFIG.GA4_ID ? "<br>サービス改善のため、Googleアナリティクスでアクセス状況（どのブースが見られたかなど）を計測しています。個人を特定する情報は集めていません。" : ""}</p>
     </section>
     <a class="back" href="#/">← ブース一覧へ戻る</a>
   </main>`;
@@ -560,7 +557,6 @@ function bindList() {
   q.addEventListener("input", e => { if (!composing && !e.isComposing) apply(); });
   document.getElementById("clear").addEventListener("click", () => { q.value = ""; apply(); q.focus(); });
   document.getElementById("hall").addEventListener("change", e => { state.hall = e.target.value; updateResults(); });
-  document.getElementById("status").addEventListener("change", e => { state.status = e.target.value; updateResults(); });
 
 }
 
