@@ -34,6 +34,7 @@
   --maybe-bg:#fbeec2; --maybe-ink:#7a5600;
   --open-bg:#e3e7eb; --open-ink:#4f5b66;
   --focus:#f2a900;
+  --east:#2f63c4; --west:#23845a; --south:#c8611f; --tbd:#7b8794; --area-ink:#ffffff;
   --fav:#d99a00; --fav-bg:#fff4cf; --fav-ink:#5c4100;
   --map-bg:#e3ecf9; --map-edge:#b9cdee; --map-ink:#123f86;
   --op-bg:#1d2833; --op-ink:#eceff2; --op-link:#9cc1f5;
@@ -52,6 +53,8 @@
     --maybe-bg:#43350d; --maybe-ink:#f3d27a;
     --open-bg:#2c3640; --open-ink:#b3bec8;
     --fav:#e0b13a; --fav-bg:#43350d; --fav-ink:#f3d27a;
+  --east:#7aa5f2; --west:#62c495; --south:#f19d63; --tbd:#9aa6b2; --area-ink:#0d1620;
+    --east:#7aa5f2; --west:#62c495; --south:#f19d63; --tbd:#9aa6b2; --area-ink:#0d1620;
     --map-bg:#1c2c45; --map-edge:#2f4a73; --map-ink:#b9d1f5;
     --op-bg:#0d141b; --op-ink:#e6ebef; --op-link:#9cc1f5;
   }
@@ -103,7 +106,9 @@ select{width:100%;font:inherit;font-size:16px;padding:9px 30px 9px 10px;border:1
 .plate .no{font-family:var(--num);font-weight:700;font-size:1.55rem;line-height:1.05;letter-spacing:.02em;overflow-wrap:anywhere}
 .plate .no.long{font-size:1.05rem}
 .plate .no:not(.long){white-space:nowrap;font-size:clamp(1.15rem,6vw,1.55rem);letter-spacing:0}
-.plate .hall{font-size:.68rem;margin-top:5px;font-weight:600;line-height:1.2}
+.plate .hall{font-size:.66rem;margin-top:6px;font-weight:700;line-height:1.5;background:var(--area,var(--tbd));color:var(--area-ink);border-radius:999px;padding:0 7px;white-space:nowrap}
+.plate.area-e{--area:var(--east)}.plate.area-w{--area:var(--west)}.plate.area-s{--area:var(--south)}
+.plate.area-e,.plate.area-w,.plate.area-s{box-shadow:inset 0 0 0 1px var(--plate-edge),inset 0 -4px 0 var(--area)}
 .plate.tbd .no{font-family:var(--jp);font-size:.85rem;font-weight:700}
 .body{min-width:0;display:flex;flex-direction:column;gap:4px}
 .badge{align-self:flex-start;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 9px;line-height:1.6}
@@ -198,6 +203,8 @@ const CONFIG = {
   // 空のままなら、同じフォルダの data.csv を読み込みます。
   SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBjW9zrMs0l4Nr8pM1Ep0if3kd4Ddisr7v0wk8-XAFy5OOmynBbAGrBzNGUF8tWWgav_G29vm403iF/pub?gid=1491173051&single=true&output=csv",
   FALLBACK_CSV: "data.csv",
+  // 「設定」タブを「ウェブに公開」→「カンマ区切り形式(.csv)」で発行したURL（データ更新日時の表示に使います）
+  SETTINGS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBjW9zrMs0l4Nr8pM1Ep0if3kd4Ddisr7v0wk8-XAFy5OOmynBbAGrBzNGUF8tWWgav_G29vm403iF/pub?gid=1373910213&single=true&output=csv",
   CONTACT_X: "TechnoaPr",
   OFFICIAL_URL: "https://www.jimtof.org/",
   // Googleアナリティクス4の測定ID（例：G-XXXXXXXXXX）。空なら計測しません。
@@ -323,7 +330,28 @@ async function fetchText(url) {
   if (!/company_name/.test(t)) throw new Error("format");
   return t;
 }
+function parseStamp(v) {
+  const m = String(v || "").match(/(\d{4})\D(\d{1,2})\D(\d{1,2})\D+(\d{1,2}):(\d{2})/);
+  return m ? new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]) : null;
+}
+async function loadSettings() {
+  if (!CONFIG.SETTINGS_CSV_URL) return;
+  try {
+    const res = await fetch(CONFIG.SETTINGS_CSV_URL, { cache: "no-store" });
+    if (!res.ok) return;
+    const lines = (await res.text()).replace(/^\uFEFF/, "").split(/\r?\n/);
+    for (const line of lines) {
+      const [k, ...v] = line.split(",");
+      if (k.trim() === "updated_at") {
+        const d = parseStamp(v.join(",").replace(/"/g, ""));
+        if (d) { state.sheetUpdated = d; try { localStorage.setItem(STORE_KEY + ":upd", String(d.getTime())); } catch (e) {} render(); }
+      }
+    }
+  } catch (e) {}
+}
 async function loadData() {
+  try { const u = localStorage.getItem(STORE_KEY + ":upd"); if (u) state.sheetUpdated = new Date(+u); } catch (e) {}
+  loadSettings();
   let cached = null;
   try { cached = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) {}
   if (cached && cached.csv) {
@@ -365,7 +393,8 @@ function plate(r) {
   const tbd = !r.booth;
   const no = tbd ? "調査中" : r.booth;
   const long = no.length > 6 ? " long" : "";
-  return `<div class="plate${tbd ? " tbd" : ""}" aria-label="小間番号 ${esc(no)}">
+  const area = { "東": " area-e", "西": " area-w", "南": " area-s" }[(r.hall || "").charAt(0)] || "";
+  return `<div class="plate${tbd ? " tbd" : ""}${area}" aria-label="小間番号 ${esc(no)}">
     <span class="no${long}">${esc(no).replace(/-/g, "-<wbr>")}</span>
     <span class="hall">${esc(r.hall || "ホール調査中")}</span></div>`;
 }
@@ -412,8 +441,8 @@ function resultsHTML() {
 function countHTML() {
   const n = filtered().length;
   const companies = new Set(state.rows.map(r => r.name)).size;
-  const t = state.updated ? state.updated.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
-  const note = state.source === "cache" ? `保存済みデータ（${t}時点）` : t ? `データ更新：${t}` : "";
+  const t = state.sheetUpdated ? state.sheetUpdated.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+  const note = (t ? `データ更新：${t}` : "") + (state.source === "cache" ? "（保存済みデータを表示中）" : "");
   return `<span><b>${n}</b>ブースを表示中（全${companies}社・${state.rows.length}ブース）</span><span>${esc(note)}</span>`;
 }
 function updateResults() {
