@@ -88,6 +88,8 @@ a{color:inherit}
 /* filters */
 .filters{display:grid;grid-template-columns:1fr;gap:8px;padding-bottom:10px}
 .search{grid-column:1/-1;position:relative}
+.order-toggle{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;min-height:40px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.order-toggle input{width:20px;height:20px;margin:0;accent-color:var(--accent)}
 .search input{width:100%;font:inherit;font-size:16px;padding:11px 40px 11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
 .search input:focus{border-color:var(--accent);outline:none}
 .clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--ink-2);font-size:1.2rem;width:32px;height:32px;cursor:pointer;display:none}
@@ -248,7 +250,7 @@ const HALL_GROUPS = [
 ];
 const X_SVG = '<svg class="xicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 
-const state = { rows: [], q: "", hall: "all", status: "all", source: "", updated: null, scrollY: 0 };
+const state = { rows: [], q: "", hall: "all", boothOrder: false, source: "", updated: null, scrollY: 0 };
 
 
 /* ---------- utilities ---------- */
@@ -414,11 +416,19 @@ function operatorCard() {
 }
 function badge(st) { return `<span class="badge ${STATUS[st].cls}">${STATUS[st].label}</span>`; }
 
+/* 並び順：初期は運営（テクノア）が先頭、ほかは開くたびにランダム（開いている間は固定）。
+   「ブース番号順」にチェックすると小間番号順。 */
+const RANK = new Map();
+function rankOf(id) { if (!RANK.has(id)) RANK.set(id, Math.random()); return RANK.get(id); }
 function filtered() {
   const q = fold(state.q);
-  return state.rows.filter(r =>
+  const list = state.rows.filter(r =>
     (state.hall === "all" || r.group === state.hall) &&
     (!q || r.hay.includes(q)));
+  if (!state.boothOrder) {
+    list.sort((a, b) => (isOperator(b) - isOperator(a)) || (rankOf(a.id) - rankOf(b.id)));
+  }
+  return list;
 }
 
 function resultsHTML() {
@@ -472,6 +482,7 @@ function listView() {
         <button class="clear" id="clear" aria-label="検索語を消す">×</button>
       </div>
       <select id="hall" aria-label="ホールで絞り込む"><option value="all">すべてのホール</option>${hallOpts}</select>
+      <label class="order-toggle"><input type="checkbox" id="boothOrder"${state.boothOrder ? " checked" : ""}> ブース番号順に並べる</label>
     </div>
     <div class="count" id="count"></div>
   </div></header>
@@ -512,6 +523,7 @@ function guideView() {
     <section class="card"><h2>使い方</h2>
       <ul class="g-list">
         <li><strong>🔍 検索・絞り込み</strong>社名やキーワードで検索できます。展示ホールで絞り込むこともできます。</li>
+        <li><strong>🔀 並び順</strong>一覧は、運営のテクノアを先頭に、開くたびに順番が入れ替わります。「ブース番号順に並べる」にチェックを入れると、小間番号の順に並びます。</li>
         <li><strong>📌 詳細を見る</strong>ブースをタップすると、Xアカウントなどの詳しい情報を確認できます。</li>
         <li><strong>📱 インストールは不要です</strong>このページはブラウザでそのまま使えます。もっと手軽に開きたい方は、ホーム画面に追加しておくと便利です（iPhoneはSafariの共有ボタン→「ホーム画面に追加」、Androidはメニュー→「ホーム画面に追加」）。</li>
       </ul></section>
@@ -586,6 +598,7 @@ function bindList() {
   q.addEventListener("input", e => { if (!composing && !e.isComposing) apply(); });
   document.getElementById("clear").addEventListener("click", () => { q.value = ""; apply(); q.focus(); });
   document.getElementById("hall").addEventListener("change", e => { state.hall = e.target.value; updateResults(); });
+  document.getElementById("boothOrder").addEventListener("change", e => { state.boothOrder = e.target.checked; updateResults(); });
 
 }
 
